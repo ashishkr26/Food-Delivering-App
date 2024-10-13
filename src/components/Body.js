@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedlable } from "./RestaurantCard";
 import { Link } from "react-router-dom";
 // import { resList } from "../data/data";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [searchRestaurant, setSearchRestaurant] = useState([]);
@@ -10,6 +11,9 @@ const Body = () => {
   const [error, setError] = useState(null);
 
   const [searchText, setSearchtext] = useState("");
+  const onlineStatus = useOnlineStatus();
+
+  const RestaurantCardPromoted = withPromotedlable(RestaurantCard);
 
   useEffect(() => {
     fetchData();
@@ -27,7 +31,6 @@ const Body = () => {
       setListOfRestaurant(
         jsonData.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
-      console.log(listOfRestaurant);
       setSearchRestaurant(
         jsonData.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
@@ -38,8 +41,9 @@ const Body = () => {
     }
   };
 
+
+
   const handleTopRated = () => {
-    console.log("button clicked");
 
     const filterRes = searchRestaurant.filter((restaurant) => {
       return restaurant?.info?.avgRating > 4.4;
@@ -49,21 +53,34 @@ const Body = () => {
   };
 
   const handleSearch = () => {
-    console.log(searchText);
   };
 
-  return loading ==true ? (
+  if (onlineStatus === false) {
+    return (
+      <div>
+        <h1>Looks like your internet is off</h1>
+      </div>
+    );
+  }
+  
+  return loading == true ? (
     <Shimmer resList={searchRestaurant} />
   ) : (
-    <div className="body">
-      <div className="filter-container">
-        <div className="top-rated-btn">
-          <button onClick={handleTopRated}>Top Rated resturants</button>
+    <div className="m-4">
+      <div className="filter-container flex justify-between mx-20">
+        <div className="top-rated-btn ml-4 ">
+          <button
+            className="border-2 border-green-200 text-black-500 bg-white hover:bg-green-500 hover:text-white px-4 py-2 rounded"
+            onClick={handleTopRated}
+          >
+            Top Rated Resturants
+          </button>
         </div>
-        <div className="searchBar">
+        <div className="searchBar ">
           <input
+            className="border border-solid border-black rounded-lg p-4 mr-4 w-96 h-10"
             type="text"
-            placeholder="search"
+            placeholder="🔍 Search Restaurants"
             value={searchText}
             onChange={(e) => {
               setSearchtext(e.target.value);
@@ -71,14 +88,13 @@ const Body = () => {
           />
 
           <button
-            className="search-btn"
+            className="border-2 border-green-200 text-black-00 bg-white hover:bg-green-500 hover:text-white px-4 py-2 rounded"
             onClick={() => {
               const searchRes = listOfRestaurant.filter((restaurant) => {
                 return restaurant?.info?.name
                   .toLowerCase()
                   .includes(searchText.toLocaleLowerCase());
               });
-              console.log(searchRes);
               setSearchRestaurant(searchRes);
             }}
           >
@@ -87,9 +103,17 @@ const Body = () => {
         </div>
       </div>
 
-      <div className="res-container">
+      <div className="flex flex-wrap h-96 ml-20">
         {searchRestaurant.map((restaurant) => (
-          <Link className="rsl" to={"/restaurants/" + restaurant.info.id} key={restaurant.info.id}> <RestaurantCard  resList={restaurant} /></Link>
+          <Link
+            className="rsl"
+            to={"/restaurants/" + restaurant.info.id}
+            key={restaurant.info.id}
+          >
+           
+              <RestaurantCard resList={restaurant} />
+            
+          </Link>
         ))}
       </div>
     </div>
