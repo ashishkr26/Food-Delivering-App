@@ -65,3 +65,12 @@ callback functions of useEffect will be called once that component is rendered
 
 //Shimmer- improves UX, as loading data from Api takes time.
 -- It loads dummy cards, until API responds
+
+
+# Redux Toolkit
+- Install @reactjs/toolkit and react-redux
+- Build the store
+- connect the store to out app
+- create cartSlice ()
+- dispatch an action which will call the reducer to modify the slice
+-  adn the as cart is subscribed to the store, we will read the data from store using selector

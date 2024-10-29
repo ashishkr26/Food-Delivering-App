@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 // import { resList } from "../data/data";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { CDN_URL } from "../utils/constant";
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [searchRestaurant, setSearchRestaurant] = useState([]);
+  const [imageList, setImageList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -34,17 +36,16 @@ const Body = () => {
       setSearchRestaurant(
         jsonData.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
+      setImageList(jsonData.data.cards[0].card.card.imageGridCards.info);
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
     }
   };
-
-
+  const imageGrid = imageList || {};
 
   const handleTopRated = () => {
-
     const filterRes = searchRestaurant.filter((restaurant) => {
       return restaurant?.info?.avgRating > 4.4;
     });
@@ -52,8 +53,7 @@ const Body = () => {
     setSearchRestaurant(filterRes);
   };
 
-  const handleSearch = () => {
-  };
+  const handleSearch = () => {};
 
   if (onlineStatus === false) {
     return (
@@ -62,13 +62,23 @@ const Body = () => {
       </div>
     );
   }
-  
+
+  const [gridCount, setGridCount] = useState(0);
+
+  const handleNextGrid = () => {
+    setGridCount((prevCount) => Math.min(prevCount + 2, imageGrid.length - 2));
+  };
+
+  const handlePrevGrid = () => {
+    setGridCount((prevCount) => Math.max(prevCount - 2, 0));
+  };
+
   return loading == true ? (
     <Shimmer resList={searchRestaurant} />
   ) : (
     <div className="m-4">
       <div className="filter-container flex justify-between mx-20">
-        <div className="top-rated-btn ml-4 ">
+        <div className="top-rated-btn ml-4 transition-opacity duration-300 ease-in-out">
           <button
             className="border-2 border-green-200 text-black-500 bg-white hover:bg-green-500 hover:text-white px-4 py-2 rounded"
             onClick={handleTopRated}
@@ -103,16 +113,61 @@ const Body = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap h-96 ml-20">
+      <div className="mx-8 shadow-lg">
+        <h1 className="font-bold text-xl ml-20 mt-10">
+          Ashish, What's On Your Mind.
+        </h1>
+
+        <div className="flex justify-end -mt-10 p-4 mr-10">
+          <button
+            onClick={handlePrevGrid}
+            disabled={gridCount === 0}
+            className="text-2xl disabled:opacity-50"
+          >
+            ⬅️
+          </button>
+          <button
+            onClick={handleNextGrid}
+            disabled={gridCount + 7 >= imageGrid.length}
+            className="text-2xl disabled:opacity-50"
+          >
+            ➡️
+          </button>
+        </div>
+
+        <div className="flex  ml-16 overflow-hidden relative">
+          <div
+            className="flex"
+           // Adjusting based on visible items
+          >
+            {imageGrid.slice(gridCount, gridCount + 7).map((image) => (
+              <div key={image.id} className="flex shrink-0">
+                <img
+                  className="w-36"
+                  src={`${CDN_URL}${image.imageId}`}
+                  alt="grid"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        {" "}
+        <label className="text-xl font-bold mx-24 py-10">
+          Top Restaurants Chain in Bangalore
+        </label>
+      </div>
+
+      <div className="flex flex-wrap  h-72 ml-20">
         {searchRestaurant.map((restaurant) => (
           <Link
             className="rsl"
             to={"/restaurants/" + restaurant.info.id}
             key={restaurant.info.id}
           >
-           
-              <RestaurantCard resList={restaurant} />
-            
+            <RestaurantCard resList={restaurant} />
           </Link>
         ))}
       </div>
