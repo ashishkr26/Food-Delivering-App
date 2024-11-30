@@ -34,20 +34,20 @@ const RestaurantMenu = () => {
   return (
     <div className=" ">
       <div className="w-7/12   mx-auto ">
-        <h2 className="text-2xl font-bold mt-8 ">{name}</h2>
+        <h2 className="text-xl font-bold mt-8 ">{name}</h2>
 
-        <div className="rounded-[12px] border-2 shadow-xl p-4 my-10 h-38">
+        <div className="rounded-[12px] border-2 drop-shadow-lg shadow-lg p-4 my-5 h-38">
           <p className="font-bold">{`Average Ratings: ${avgRating}⭐`}</p>
-          <h3 className="font-bold text-orange-500 ">
+          <h3 className="font-bold text-sm text-orange-600 ">
             {cuisines.join(", ")}.{" "}
           </h3>
           <div className="py-2">
-            <span>📍 </span>
-            <span>Outlet</span>
-            <span className="font-bold py-4"> {areaName}</span>
+            <span>📍</span>
+            <span className="py-2 text-sm">Outlet</span>
+            <span className="font-semibold py-2 text-sm"> {areaName}</span>
           </div>
 
-          <h3 className="py-4">{`🕧 ${minDeliveryTime} - ${maxDeliveryTime} Mints.`}</h3>
+          <h3 className="py-4 text-sm">{`🕧 ${minDeliveryTime} - ${maxDeliveryTime} Mints.`}</h3>
 
           {/* <p>{`Cost for Two: ${costFortwoMessage}`}</p> */}
         </div>

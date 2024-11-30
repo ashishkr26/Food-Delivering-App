@@ -34,7 +34,7 @@ const RestaurantCard = (props) => {
         {cuisines.join(", ").slice(0, 55)}
       </h4>
       <h4 className="text-xs font-gilroy pt-1">{areaName}</h4>
-      <h4 className="text-xs font-gilroy pt-1">Rs. {costForTwo}</h4>
+      <h4 className="text-xs font-gilroy pt-1">{costForTwo}</h4>
     </div>
   );
 };

@@ -32,7 +32,7 @@ const Header = () => {
   return (
     <div className="flex justify-between  shadow-lg  sticky top-0 z-10 bg-white">
       <div className="logo-container">
-        <img className="w-32" src={Logo} />
+       <Link to ="/"> <img className="w-32" src={Logo} /></Link>
       </div>
 
       <div className="flex items-center">

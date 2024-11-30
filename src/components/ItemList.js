@@ -24,7 +24,7 @@ const ItemList = (items) => {
             <div className="w-9/12">
               <div className="py-2">
                 <p>{item?.card?.info?.isVeg === 1 ? "🟩" : "🟥"}</p>
-                <span className="text-lg font-semibold">
+                <span className="text-base font-semibold">
                   {item?.card?.info?.name}
                 </span>
                 <p className="font-semibold">
@@ -36,7 +36,7 @@ const ItemList = (items) => {
                   ⭐{item?.card?.info?.ratings?.aggregatedRating?.rating}{" "}
                   {`(${item?.card?.info?.ratings?.aggregatedRating?.ratingCountV2})`}
                 </p>
-                <p className="text=xs font-gilroy py-2">
+                <p className="text-sm py-2">
                   {item?.card?.info?.description}
                 </p>
               </div>
@@ -48,7 +48,7 @@ const ItemList = (items) => {
               />
               <button
                 onClick={() => handleUpdateCart(item)}
-                className="text-white font-bold  w-24 h-9 rounded-md -mt-5 ml-10 absolute bg-black hover:bg-white hover:text-black"
+                className="text-white font-semibold text-sm  w-16 h-6 rounded-md -mt-3 ml-9 absolute bg-black hover:bg-white hover:text-black"
               >
                 ADD +
               </button>

@@ -16,8 +16,15 @@ const CartItems = (cartItems) => {
       <div></div>
       {cartItems.item.length === 0 ? (
         <div>
-          <p className="w-7/12 bg-gray-50 shadow-lg p-4 my-4 mx-auto">
-            Your cart is empty.
+          <div className="flex items-center justify-center">
+            <img
+              className="h-44 "
+              alt=""
+              src="https://www.shutterstock.com/image-vector/vector-illustration-icon-shopping-concept-600nw-502037047.jpg"
+            />
+          </div>
+          <p className=" w-7/12 shadow-lg font-semibold p-4 mx-auto">
+            Your cart is Empty.
           </p>
           {/* <Link to="/" className="link">
             <button className="m-4 p-2 bg-gray-100 border border-black">
@@ -26,7 +33,7 @@ const CartItems = (cartItems) => {
           </Link> */}
 
           <button
-            className=" m-4 p-2 bg-gray-100 border border-black"
+            className=" m-4 p-1.5 text-white bg-orange-500 border border-black"
             onClick={() => navigate("/")}
           >
             Add Item
@@ -81,7 +88,7 @@ const CartItems = (cartItems) => {
 
       <div className="w-6/12 m-auto">
         <button
-          className="m-4 p-2 bg-black text-white border border-black"
+          className="m-4 p-2 bg-gray-900 text-white border border-black"
           onClick={() => deleteCart(cartItems)}
         >
           Clear Cart
@@ -92,3 +99,18 @@ const CartItems = (cartItems) => {
 };
 
 export default CartItems;
+
+{
+  /* <div className="h-80 w-3/4 border border-black mt-20 ml-44 mb-8 p-4 bg-white">
+        <div className="text-left font-semibold">Select delivery address</div>
+        <div className="text-left text-gray-500">
+          You have a saved address in this location
+        </div>
+
+        <div className="flex m-2">
+          <div className="h-40 w-1/2 border border-gray-400 m-2 hover:shadow-lg"></div>
+
+          <div className="h-40 w-1/2 border border-gray-400 m-2 hover:shadow-lg"></div>
+        </div>
+      </div> */
+}
