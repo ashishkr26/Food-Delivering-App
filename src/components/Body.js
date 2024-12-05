@@ -8,6 +8,7 @@ import { CDN_URL } from "../utils/constant";
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [searchRestaurant, setSearchRestaurant] = useState([]);
+  const [isClicked, SetIsClicked] = useState(false)
   const [imageList, setImageList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -80,7 +81,7 @@ const Body = () => {
       <div className="filter-container flex justify-between mx-20">
         <div className="top-rated-btn ml-4 transition-opacity duration-300 ease-in-out">
           <button
-            className="border-2 border-green-200 text-black-500 bg-white hover:bg-green-500 hover:text-white px-4 py-2 rounded"
+            className="border-2 border-green-200 text-black-500 bg-white hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg"
             onClick={handleTopRated}
           >
             Top Rated Resturants
@@ -88,17 +89,19 @@ const Body = () => {
         </div>
         <div className="searchBar ">
           <input
-            className="border border-solid border-black rounded-lg p-4 mr-4 w-96 h-10"
+            className={`border border-solid border-black rounded-lg p-4 mr-4  h-10 ${isClicked ? "w-[660px]" : "w-52"}`}
             type="text"
             placeholder="🔍 Search Restaurants"
             value={searchText}
             onChange={(e) => {
               setSearchtext(e.target.value);
             }}
+            onClick={()=>{SetIsClicked(true)}}
+            onBlur={()=>{SetIsClicked(false)}}
           />
 
           <button
-            className="border-2 border-green-200 text-black-00 bg-white hover:bg-green-500 hover:text-white px-4 py-2 rounded"
+            className="border-2 border-green-200 text-black-00 bg-white hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg"
             onClick={() => {
               const searchRes = listOfRestaurant.filter((restaurant) => {
                 return restaurant?.info?.name
