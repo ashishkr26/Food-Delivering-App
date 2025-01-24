@@ -116,12 +116,12 @@ const Body = () => {
         </div>
       </div>
 
-      <div className="mx-8 shadow-lg">
+      <div className="mx-8 shadow-lg overflow-x-scroll">
         <h1 className="font-bold text-xl ml-20 mt-10">
           Ashish, What's On Your Mind.
         </h1>
 
-        <div className="flex justify-end -mt-10 p-4 mr-10">
+        {/* <div className="flex justify-end -mt-10 p-4 mr-10">
           <button
             onClick={handlePrevGrid}
             disabled={gridCount === 0}
@@ -136,14 +136,14 @@ const Body = () => {
           >
             ➡️
           </button>
-        </div>
+        </div> */}
 
         <div className="flex  ml-16 overflow-hidden relative">
           <div
             className="flex"
            // Adjusting based on visible items
           >
-            {imageGrid.slice(gridCount, gridCount + 7).map((image) => (
+            {imageGrid.map((image) => (
               <div key={image.id} className="flex shrink-0">
                 <img
                   className="w-36"
