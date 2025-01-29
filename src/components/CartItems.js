@@ -93,6 +93,9 @@ const CartItems = (cartItems) => {
         >
           Clear Cart
         </button>
+        <button onClick={()=>navigate("/payment")} className="m-4 p-2 bg-yellow-400 text-white border border-black">
+          Proceed To Payment
+        </button>
       </div>
     </div>
   );

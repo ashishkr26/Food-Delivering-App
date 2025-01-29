@@ -66,13 +66,9 @@ const Body = () => {
 
   const [gridCount, setGridCount] = useState(0);
 
-  const handleNextGrid = () => {
-    setGridCount((prevCount) => Math.min(prevCount + 2, imageGrid.length - 2));
-  };
 
-  const handlePrevGrid = () => {
-    setGridCount((prevCount) => Math.max(prevCount - 2, 0));
-  };
+
+
 
   return loading == true ? (
     <Shimmer resList={searchRestaurant} />
@@ -121,24 +117,8 @@ const Body = () => {
           Ashish, What's On Your Mind.
         </h1>
 
-        {/* <div className="flex justify-end -mt-10 p-4 mr-10">
-          <button
-            onClick={handlePrevGrid}
-            disabled={gridCount === 0}
-            className="text-2xl disabled:opacity-50"
-          >
-            ⬅️
-          </button>
-          <button
-            onClick={handleNextGrid}
-            disabled={gridCount + 7 >= imageGrid.length}
-            className="text-2xl disabled:opacity-50"
-          >
-            ➡️
-          </button>
-        </div> */}
-
-        <div className="flex  ml-16 overflow-hidden relative">
+       
+        <div className="flex  ml-16  relative">
           <div
             className="flex"
            // Adjusting based on visible items
